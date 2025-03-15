@@ -6,22 +6,34 @@ def main():
         base_url = "https://www.space-track.org"
         auth_path = "/ajaxauth/login"
         user_name = "phil@holdstock.co.nz"
-        password = "FatherDougal123*
-        query = f"/basicspacedata/query/class/cdm_public/CDM_ID/CREATED/%3Enow-30/TCA/MIN_RNG/PC/SAT_1_ID/SAT_1_NAME/SAT_1_OBJECT_TYPE/SAT1_RCS/SAT_1_EXCL_VOL/SAT_2_ID/SAT_2_NAME/SAT_2_OBJECT_TYPE/SAT2_RCS/SAT_2_EXCL_VOL/format/csv"
+        password = "FatherDougal123*"  # Fixed the unterminated string literal
+        query = f"/basicspacedata/query/class/cdm_public/CDM_ID/CREATED/TCA/MIN_RNG/PC/SAT_1_ID/SAT_1_NAME/SAT_1_OBJECT_TYPE/SAT1_RCS/SAT_1_EXCL_VOL/SAT_2_ID/SAT_2_NAME/SAT_2_OBJECT_TYPE/SAT2_RCS/SAT_2_EXCL_VOL"
 
         session = requests.Session()
         session.post(base_url + auth_path, data={"identity": user_name, "password": password})
 
         response = session.get(base_url + query)
-        
-        with open("spacetrack_TLE.txt", "w") as file:
-            file.write(response.text)
+        data = response.json()  # Assuming the response is in JSON format
+
+        # Specify the CSV file name
+        csv_file = "spacetrack_data.csv"
+
+        # Open the CSV file for writing
+        with open(csv_file, mode='w', newline='') as file:
+            writer = csv.writer(file)
+
+            # Write the header
+            headers = data[0].keys() if data else []
+            writer.writerow(headers)
+
+            # Write the data rows
+            for row in data:
+                writer.writerow(row.values())
 
         session.get(base_url + "/ajaxauth/logout")
 
     except Exception as e:
         print(e)
-
 
 if __name__ == "__main__":
     main()
