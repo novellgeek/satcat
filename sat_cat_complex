@@ -32,9 +32,12 @@ class MyError(Exception):
 # the "OMM Starlink" query gets all Orbital Mean-Elements Messages (OMM) for a specific NORAD_CAT_ID in JSON format.
 
 uriBase = "https://www.space-track.org"
-requestLogin = "/ajaxauth/login"
+auth_path = "/ajaxauth/login"
+user_name = "phil@holdstock.co.nz"
+password = "FatherDougal123*"
+norad_cat_ids = read_norad_cat_ids_from_column_b("C:\\Spacetrack\\spacetrack.csv")
 requestCmdAction = "/basicspacedata/query"
-requestFindStarlinks = "/class/tle_latest/NORAD_CAT_ID/>40000/ORDINAL/1/OBJECT_NAME/STARLINK~~/format/json/orderby/NORAD_CAT_ID%20asc"
+requestFindStarlinks = "/class/gp/NORAD_CAT_ID/{norad_cat_ids}/ORDINAL/1/format/json/orderby/NORAD_CAT_ID%20asc"
 requestOMMStarlink1 = "/class/omm/NORAD_CAT_ID/"
 requestOMMStarlink2 = "/orderby/EPOCH%20asc/format/json"
 
