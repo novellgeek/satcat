@@ -5,8 +5,8 @@ def main():
     try:
         base_url = "https://www.space-track.org"
         auth_path = "/ajaxauth/login"
-        user_name = "phil@holdstock.co.nz"
-        password = "FatherDougal123*"  # Fixed the unterminated string literal
+        user_name = ""
+        password = ""  # Fixed the unterminated string literal
         query = f"/basicspacedata/query/class/cdm_public/CDM_ID/CREATED/TCA/MIN_RNG/PC/SAT_1_ID/SAT_1_NAME/SAT_1_OBJECT_TYPE/SAT1_RCS/SAT_1_EXCL_VOL/SAT_2_ID/SAT_2_NAME/SAT_2_OBJECT_TYPE/SAT2_RCS/SAT_2_EXCL_VOL"
 
         session = requests.Session()
